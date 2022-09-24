@@ -9,5 +9,6 @@ import Foundation
 extension Country {
     enum Errors: Error {
         case missingKey(String)
+        case notImplemented
     }
 }

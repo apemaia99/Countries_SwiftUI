@@ -21,7 +21,7 @@ extension Country {
         }
         
         func encode(to encoder: Encoder) throws {
-            //FIXME: Implement
+            throw Errors.notImplemented
         }
         
         init(from decoder: Decoder) throws {
@@ -43,7 +43,7 @@ extension Country {
                 
                 location = .init(latitude: latlng[0], longitude: latlng[1])
             } catch {
-                throw Errors.missingKey("latlng")
+                throw Errors.missingKey("capitalInfo-latlng")
             }
         }
         

@@ -12,9 +12,10 @@ struct Country: Identifiable, Codable {
     
     let id = UUID()
     let name: Name
-    let continent: String
+    let continent: Continents
     var capital: Capital?
     
+    let location: CLLocation
     var tld: [String]?
     var currencies: [Currency]?
     var languages: [String]?
@@ -24,8 +25,9 @@ struct Country: Identifiable, Codable {
     
     init(
         name: Name,
-        continent: String,
+        continent: Continents,
         capital: Capital? = nil,
+        location: CLLocation,
         tld: [String]? = nil,
         currencies: [Currency]? = nil,
         languages: [String]? = nil,
@@ -36,6 +38,7 @@ struct Country: Identifiable, Codable {
         self.name = name
         self.continent = continent
         self.capital = capital
+        self.location = location
         self.tld = tld
         self.currencies = currencies
         self.languages = languages
@@ -53,9 +56,14 @@ struct Country: Identifiable, Codable {
         population = try root.decode(Int.self, forKey: .population)
         flags = try root.decode(Flag.self, forKey: .flags)
         
-        continent = try root
-            .decode([String].self, forKey: .continent)
-            .first ?? ""
+        let latlng = try root.decode([CLLocationDegrees].self, forKey: .location)
+        location = .init(latitude: latlng[0], longitude: latlng[1])
+        
+        continent = .init(
+            rawValue: try root
+                .decode([String].self, forKey: .continent)
+                .first ?? ""
+        ) ?? .none
         
         do {
             capital = try .init(from: decoder)
@@ -86,10 +94,15 @@ struct Country: Identifiable, Codable {
         }
     }
     
+    func encode(to encoder: Encoder) throws {
+        throw Errors.notImplemented
+    }
+    
     enum CodingKeys: String, CodingKey {
         case name
         case continent = "continents"
         case capital
+        case location = "latlng"
         case tld
         case currencies
         case languages

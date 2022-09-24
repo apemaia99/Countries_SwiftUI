@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class NetworkingService {
+actor NetworkingService {
     
-    static func fetchObject<T: Codable>(for url: URL) async throws -> T {
+    func fetchObject<T: Codable>(for url: URL) async throws -> T {
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
