@@ -8,10 +8,11 @@
 import Foundation
 
 extension Country {
-    struct Currency: Codable {
+    struct Currency: Decodable {
         
         let name: String
         let symbol: String
+        var ISO4217: String?
         
         enum CodingKeys: CodingKey {
             case name

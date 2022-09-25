@@ -9,19 +9,14 @@ import Foundation
 import CoreLocation
 
 extension Country {
-    struct Capital: Codable {
+    struct Capital: Decodable {
         
-        private let anchor: String = ""
         let name: String
         let location: CLLocation
         
         init(name: String, location: CLLocation) {
             self.name = name
             self.location = location
-        }
-        
-        func encode(to encoder: Encoder) throws {
-            throw Errors.notImplemented
         }
         
         init(from decoder: Decoder) throws {
@@ -38,8 +33,8 @@ extension Country {
             
             do {
                 let latlng = try root
-                    .nestedContainer(keyedBy: CodingKeys.self, forKey: .location)
-                    .decode([CLLocationDegrees].self, forKey: .anchor)
+                    .nestedContainer(keyedBy: AdditionalInfoKeys.self, forKey: .location)
+                    .decode([CLLocationDegrees].self, forKey: .latlng)
                 
                 location = .init(latitude: latlng[0], longitude: latlng[1])
             } catch {
@@ -50,7 +45,10 @@ extension Country {
         enum CodingKeys: String, CodingKey {
             case name = "capital"
             case location = "capitalInfo"
-            case anchor = "latlng"
+        }
+        
+        enum AdditionalInfoKeys: String, CodingKey {
+            case latlng = "latlng"
         }
     }
 }

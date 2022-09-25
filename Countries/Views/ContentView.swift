@@ -32,17 +32,17 @@ struct ContentView: View {
             .searchable(text: $searchField, placement: .toolbar, prompt: "Find a Country")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Picker(selection: $selectedContinent) {
-                        ForEach(Country.Continents.allCases, id: \.self) { continent in
-                            if continent != .none {
-                                Text(continent.name).tag(continent)
-                                    .font(.title2)
+                    Menu {
+                        Picker("Continents", selection: $selectedContinent) {
+                            ForEach(Country.Continents.allCases, id: \.self) { continent in
+                                if continent != .none {
+                                    Text(continent.name).tag(continent)
+                                }
                             }
-                        }
+                        }.pickerStyle(.inline)
                     } label: {
-                        Label("Order Menu", systemImage: "arrow.up.arrow.down.circle.fill")
-                            .font(.title2)
-                    }.pickerStyle(.menu)
+                        Text(selectedContinent.name)
+                    }
                 }
             }
         }
@@ -65,6 +65,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(CountryManager(networkingService: NetworkingService()))
+            .environmentObject(
+                CountryManager(networkingService: NetworkingService())
+            )
     }
 }

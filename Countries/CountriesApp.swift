@@ -14,7 +14,7 @@ struct CountriesApp: App {
     
     init() {
         let networkingService = NetworkingService()
-        //dependency Injection of external Services (also for injectind mocked services)
+        //dependency Injection of external Services (also for injecting mocked services)
         _countryManager = StateObject(
             wrappedValue: CountryManager(networkingService: networkingService)
         )

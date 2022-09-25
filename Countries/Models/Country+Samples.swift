@@ -17,8 +17,8 @@ extension Country {
             location: .init(latitude: 41.9, longitude: 12.48)
         ),
         location: .init(latitude: 42.83333333, longitude: 12.83333333),
-        tld: [".it"],
-        currencies: [.init(name: "Euro", symbol: "€")],
+        tlds: [".it"],
+        currencies: [.init(name: "Euro", symbol: "€", ISO4217: "EUR")],
         languages: ["Italian"],
         area: 301336.0,
         population: 59554023,

@@ -9,12 +9,13 @@ import Foundation
 
 actor NetworkingService {
     
-    func fetchObject<T: Codable>(for url: URL) async throws -> T {
+    func fetchObject<T: Decodable>(for url: URL) async throws -> T {
         
         let (data, response) = try await URLSession.shared.data(from: url)
+        let statusCode = (response as? HTTPURLResponse)?.statusCode
         
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw Error.request
+        guard statusCode == 200 else {
+            throw Error.request(statusCode ?? 404)
         }
         
         return try JSONDecoder().decode(T.self, from: data)
@@ -23,12 +24,12 @@ actor NetworkingService {
 
 extension NetworkingService {
     enum Error: LocalizedError {
-        case request
+        case request(Int)
         
         var errorDescription: String? {
             switch self {
-            case .request:
-                return "Bad Request"
+            case .request(let code):
+                return "Request error with response code: \(code)"
             }
         }
     }

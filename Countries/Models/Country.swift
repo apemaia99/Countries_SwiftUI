@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Country: Identifiable, Codable {
+struct Country: Identifiable, Decodable {
     
     let id = UUID()
     let name: Name
@@ -16,8 +16,8 @@ struct Country: Identifiable, Codable {
     var capital: Capital?
     
     let location: CLLocation
-    var tld: [String]?
-    var currencies: [Currency]?
+    var tlds: [String]?
+    var currencies: [Currency] = []
     var languages: [String]?
     let area: Double
     let population: Int
@@ -28,8 +28,8 @@ struct Country: Identifiable, Codable {
         continent: Continents,
         capital: Capital? = nil,
         location: CLLocation,
-        tld: [String]? = nil,
-        currencies: [Currency]? = nil,
+        tlds: [String]? = nil,
+        currencies: [Currency],
         languages: [String]? = nil,
         area: Double,
         population: Int,
@@ -39,7 +39,7 @@ struct Country: Identifiable, Codable {
         self.continent = continent
         self.capital = capital
         self.location = location
-        self.tld = tld
+        self.tlds = tlds
         self.currencies = currencies
         self.languages = languages
         self.area = area
@@ -69,7 +69,7 @@ struct Country: Identifiable, Codable {
             capital = try .init(from: decoder)
             
             do {
-                tld = try root.decode([String].self, forKey: .tld)
+                tlds = try root.decode([String].self, forKey: .tlds)
             } catch {
                 throw Errors.missingKey("tld")
             }
@@ -83,9 +83,14 @@ struct Country: Identifiable, Codable {
             }
             
             do {
-                currencies = try root
+                let currencies = try root
                     .decode([String : Currency].self, forKey: .currencies)
-                    .map(\.value)
+                
+                for (key, currency) in currencies {
+                    self.currencies.append(
+                        Currency(name: currency.name, symbol: currency.symbol, ISO4217: key)
+                    )
+                }
             } catch {
                 throw Errors.missingKey("currencies")
             }
@@ -94,16 +99,12 @@ struct Country: Identifiable, Codable {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
-        throw Errors.notImplemented
-    }
-    
     enum CodingKeys: String, CodingKey {
         case name
         case continent = "continents"
         case capital
         case location = "latlng"
-        case tld
+        case tlds = "tld"
         case currencies
         case languages
         case area

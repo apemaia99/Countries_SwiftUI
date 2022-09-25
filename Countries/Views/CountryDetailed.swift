@@ -31,6 +31,8 @@ struct CountryDetailed: View {
             languageSection
             numberSection
             mapSection
+            currencySection
+            tldSection
         }
         .listStyle(.insetGrouped)
         .navigationBarTitleDisplayMode(.inline)
@@ -121,15 +123,50 @@ extension CountryDetailed {
                 .listRowInsets(EdgeInsets())
         } header: {
             HStack {
-                Text("Maps")
+                Text("Map")
                 Spacer()
-                Button("Detailed") {
+                Button("Fullscreen") {
                     mapFullScrenPresented = true
                 }
             }.font(.callout)
         }
     }
     
+    @ViewBuilder
+    private var currencySection: some View {
+        if !country.currencies.isEmpty {
+            Section {
+                ForEach(country.currencies, id: \.name) { currency in
+                    HStack {
+                        Text(currency.name)
+                        Spacer()
+                        Text(currency.ISO4217 ?? "")
+                        Spacer()
+                        Text(currency.symbol)
+                    }.font(.title3)
+                }
+            } header: {
+                HStack {
+                    Text("Currencies")
+                }.font(.callout)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var tldSection: some View {
+        if let tlds = country.tlds {
+            Section {
+                ForEach(tlds, id: \.self) { tld in
+                    Text(tld)
+                }
+            } header: {
+                HStack {
+                    Text("Top Level Domanis")
+                }.font(.callout)
+            }
+        }
+    }
 }
 //MARK: - Computed Properties
 extension CountryDetailed {
