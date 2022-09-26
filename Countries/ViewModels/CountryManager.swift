@@ -27,7 +27,7 @@ final class CountryManager: ObservableObject {
         }
     }
     
-    func filterCountries(by continent: Country.Continents) {
+    func filterCountries(by continent: Country.Continent) {
         filteredCountries = countries.filter({ $0.continent == continent })
     }
     

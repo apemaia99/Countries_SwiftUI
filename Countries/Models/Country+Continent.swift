@@ -1,5 +1,5 @@
 //
-//  Country+Continents.swift
+//  Country+Continent.swift
 //  Countries
 //
 //  Created by Alessandro Di Maio on 24/09/22.
@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    enum Continents: String, CaseIterable, Codable {
+    enum Continent: String, CaseIterable, Codable {
         case all
         case none
         case europe = "Europe"

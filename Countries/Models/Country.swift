@@ -12,7 +12,7 @@ struct Country: Identifiable, Decodable {
     
     let id = UUID()
     let name: Name
-    let continent: Continents
+    let continent: Continent
     var capital: Capital?
     
     let location: CLLocation
@@ -25,7 +25,7 @@ struct Country: Identifiable, Decodable {
     
     init(
         name: Name,
-        continent: Continents,
+        continent: Continent,
         capital: Capital? = nil,
         location: CLLocation,
         tlds: [String]? = nil,
@@ -56,9 +56,11 @@ struct Country: Identifiable, Decodable {
         population = try root.decode(Int.self, forKey: .population)
         flags = try root.decode(Flag.self, forKey: .flags)
         
+        //MARK: Location decoding
         let latlng = try root.decode([CLLocationDegrees].self, forKey: .location)
         location = .init(latitude: latlng[0], longitude: latlng[1])
         
+        //MARK: Continenr decoding
         continent = .init(
             rawValue: try root
                 .decode([String].self, forKey: .continent)
@@ -66,14 +68,17 @@ struct Country: Identifiable, Decodable {
         ) ?? .none
         
         do {
+            //MARK: Capital decoding (delegated to Capital)
             capital = try .init(from: decoder)
             
+            //MARK: TLDs decoding
             do {
                 tlds = try root.decode([String].self, forKey: .tlds)
             } catch {
                 throw Errors.missingKey("tld")
             }
             
+            //MARK: Languages decoding
             do {
                 languages = try root
                     .decode([String : String].self, forKey: .languages)
@@ -82,6 +87,7 @@ struct Country: Identifiable, Decodable {
                 throw Errors.missingKey("languages")
             }
             
+            //MARK: Currencies manual decoding for adding support to ISO4217 code
             do {
                 let currencies = try root
                     .decode([String : Currency].self, forKey: .currencies)

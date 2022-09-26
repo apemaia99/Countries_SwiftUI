@@ -162,7 +162,7 @@ extension CountryDetailed {
                 }
             } header: {
                 HStack {
-                    Text("Top Level Domanis")
+                    Text("Top Level Domains")
                 }.font(.callout)
             }
         }

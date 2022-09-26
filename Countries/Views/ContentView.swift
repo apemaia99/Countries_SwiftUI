@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject private var countryManager: CountryManager
     @State private var searchField: String = ""
-    @State private var selectedContinent: Country.Continents = .all
+    @State private var selectedContinent: Country.Continent = .all
     
     var body: some View {
         NavigationView {
@@ -34,7 +34,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Picker("Continents", selection: $selectedContinent) {
-                            ForEach(Country.Continents.allCases, id: \.self) { continent in
+                            ForEach(Country.Continent.allCases, id: \.self) { continent in
                                 if continent != .none {
                                     Text(continent.name).tag(continent)
                                 }
