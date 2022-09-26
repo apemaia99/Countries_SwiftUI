@@ -23,7 +23,7 @@ struct ContentView: View {
                         } label: {
                             CountryRow(country: country)
                         }
-                    }
+                    }.accessibilityIdentifier("countriesList")
                 } else {
                     ProgressView("Loading")
                 }

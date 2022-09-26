@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    
+    //INFO: useful for SwiftUI previews rendering.
     static let italy = Country(
         name: .init(common: "Italy", official: "Italian Republic"),
         continent: .europe,

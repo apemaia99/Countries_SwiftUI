@@ -12,6 +12,7 @@ final class CountryManager: ObservableObject {
     //MARK: - Services(DI)
     let networkingService: NetworkingService
     //MARK: - ViewModel Properties
+    //INFO these properties must be private(set) for security reason (no writing operation on data is allowed from views)
     @Published private(set) var countries: [Country] = []
     @Published private(set) var filteredCountries: [Country] = []
     //MARK: - Init

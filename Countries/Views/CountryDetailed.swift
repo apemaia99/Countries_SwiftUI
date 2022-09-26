@@ -127,7 +127,7 @@ extension CountryDetailed {
         } header: {
             Text("Map")
                 .font(.callout)
-        }
+        }.accessibilityIdentifier("Map")
     }
     
     @ViewBuilder
