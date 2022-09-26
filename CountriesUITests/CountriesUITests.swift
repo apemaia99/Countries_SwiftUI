@@ -36,7 +36,7 @@ class CountriesUITests: XCTestCase {
         
         let rowCells = list.cells.allElementsBoundByIndex
         
-        guard rowCells.contains(where: { $0.label == target}) else {
+        guard rowCells.contains(where: { $0.label == target }) else {
             return XCTFail()
         }
     }
@@ -49,7 +49,7 @@ class CountriesUITests: XCTestCase {
         
         let rowCells = list.cells.allElementsBoundByIndex
         
-        guard let cell = rowCells.first(where: { $0.label == target}) else {
+        guard let cell = rowCells.first(where: { $0.label == target }) else {
             return XCTFail()
         }
         

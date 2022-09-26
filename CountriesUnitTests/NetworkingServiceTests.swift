@@ -13,6 +13,7 @@ class NetworkingServiceTests: XCTestCase {
     let networkService = NetworkingService()
     
     func test200OK() async {
+        
         let url = URL(string: "https://restcountries.com/v3.1/name/italy?fullText=true")!
         
         do {
@@ -23,6 +24,7 @@ class NetworkingServiceTests: XCTestCase {
     }
     
     func test404BadRequest() async {
+        
         let url = URL(string: "https://restcountries.com/v3.1/nama")!
         
         do {
