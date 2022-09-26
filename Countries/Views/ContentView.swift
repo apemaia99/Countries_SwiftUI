@@ -29,7 +29,11 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Countries")
-            .searchable(text: $searchField, placement: .toolbar, prompt: "Find a Country")
+            .searchable(
+                text: $searchField,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Country Search"
+            )
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
@@ -45,6 +49,12 @@ struct ContentView: View {
                     }
                 }
             }
+            .task {
+                await countryManager.loadCountries()
+            }
+            .refreshable {
+                await countryManager.loadCountries()
+            }
         }
         .navigationViewStyle(.stack)
         .onChange(of: searchField) {
@@ -52,12 +62,6 @@ struct ContentView: View {
         }
         .onChange(of: selectedContinent) {
             countryManager.filterCountries(by: $0)
-        }
-        .task {
-            await countryManager.loadCountries()
-        }
-        .refreshable {
-            await countryManager.loadCountries()
         }
     }
 }

@@ -8,10 +8,10 @@
 import Foundation
 
 extension Country {
-    struct Currency: Decodable {
+    struct Currency: Decodable, Equatable {
         
-        let name: String
-        let symbol: String
+        var name: String
+        var symbol: String
         var ISO4217: String?
         
         enum CodingKeys: CodingKey {

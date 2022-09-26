@@ -18,7 +18,7 @@ struct CountryDetailed: View {
     init(country: Country) {
         self.country = country
         self._region = State(initialValue: .init(
-            center: country.location.coordinate,
+            center: country.location,
             span: country.span
         ))
     }
@@ -121,14 +121,12 @@ extension CountryDetailed {
             Map(coordinateRegion: $region, interactionModes: .zoom)
                 .frame(minHeight: 400)
                 .listRowInsets(EdgeInsets())
-        } header: {
-            HStack {
-                Text("Map")
-                Spacer()
-                Button("Fullscreen") {
-                    mapFullScrenPresented = true
+                .onTapGesture {
+                    mapFullScrenPresented.toggle()
                 }
-            }.font(.callout)
+        } header: {
+            Text("Map")
+                .font(.callout)
         }
     }
     

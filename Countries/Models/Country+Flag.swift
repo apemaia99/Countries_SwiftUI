@@ -8,10 +8,10 @@
 import Foundation
 
 extension Country {
-    struct Flag: Codable {
+    struct Flag: Codable, Equatable {
         
-        let png: URL
-        let svg: URL
+        var png: URL
+        var svg: URL
         
         enum CodingKeys: CodingKey {
             case png

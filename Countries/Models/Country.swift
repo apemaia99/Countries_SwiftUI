@@ -11,23 +11,22 @@ import CoreLocation
 struct Country: Identifiable, Decodable {
     
     let id = UUID()
-    let name: Name
-    let continent: Continent
+    var name: Name
+    var continent: Continent
     var capital: Capital?
-    
-    let location: CLLocation
+    var location: CLLocationCoordinate2D
     var tlds: [String]?
     var currencies: [Currency] = []
     var languages: [String]?
-    let area: Double
-    let population: Int
-    let flags: Flag
+    var area: Double
+    var population: Int
+    var flags: Flag
     
     init(
         name: Name,
         continent: Continent,
         capital: Capital? = nil,
-        location: CLLocation,
+        location: CLLocationCoordinate2D,
         tlds: [String]? = nil,
         currencies: [Currency],
         languages: [String]? = nil,

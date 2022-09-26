@@ -13,9 +13,9 @@ struct FullScreenMap: View {
     @Environment(\.dismiss) private var dismiss
     @State private var region: MKCoordinateRegion
     
-    init(location: CLLocation, span: MKCoordinateSpan) {
+    init(location: CLLocationCoordinate2D, span: MKCoordinateSpan) {
         self._region = State(initialValue: .init(
-            center: location.coordinate,
+            center: location,
             span: span
         ))
     }

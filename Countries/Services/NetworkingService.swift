@@ -23,7 +23,7 @@ actor NetworkingService {
 }
 
 extension NetworkingService {
-    enum Error: LocalizedError {
+    enum Error: LocalizedError, Equatable {
         case request(Int)
         
         var errorDescription: String? {

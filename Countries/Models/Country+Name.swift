@@ -8,10 +8,10 @@
 import Foundation
 
 extension Country {
-    struct Name: Codable {
+    struct Name: Codable, Equatable {
         
-        let common: String
-        let official: String
+        var common: String
+        var official: String
         
         enum CodingKeys: CodingKey {
             case official

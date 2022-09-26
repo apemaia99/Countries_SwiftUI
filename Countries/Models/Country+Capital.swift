@@ -11,10 +11,10 @@ import CoreLocation
 extension Country {
     struct Capital: Decodable {
         
-        let name: String
-        let location: CLLocation
+        var name: String
+        var location: CLLocationCoordinate2D
         
-        init(name: String, location: CLLocation) {
+        init(name: String, location: CLLocationCoordinate2D) {
             self.name = name
             self.location = location
         }
@@ -50,5 +50,12 @@ extension Country {
         enum AdditionalInfoKeys: String, CodingKey {
             case latlng = "latlng"
         }
+    }
+}
+
+extension Country.Capital: Equatable {
+    static func == (lhs: Country.Capital, rhs: Country.Capital) -> Bool {
+        lhs.name == rhs.name &&
+        lhs.location == rhs.location
     }
 }
