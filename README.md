@@ -13,5 +13,6 @@
     <li>The http client for API requests leverage the latest <a href="https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html">Swift Concurrency Features</a> (Async-Await/Actors) because of that, all async methods can potentially been suspended awaiting results, this implies better reading and reasoning compared to the traditional callbacks.</li>
     <li>CountryManager is marked with @MainActor this ensure that every model updated runs on the main actor (insted of using DispatchQueue every time) this is mandatory for UI.
     <li>Network Service in this case is an actor only because we want its work to be done on a different thread instead of using Task.Detached which is not recommended according to the docs.</li>
+    <li>Restcountries is an enum for an easy management of api endpoints.</li>
   </ul>
 </body>
