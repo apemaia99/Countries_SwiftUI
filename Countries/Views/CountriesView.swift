@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CountriesView.swift
 //  Countries
 //
 //  Created by Alessandro Di Maio on 23/09/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct CountriesView: View {
     
     @EnvironmentObject private var countryManager: CountryManager
     @State private var searchField: String = ""
@@ -68,7 +68,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        CountriesView()
             .environmentObject(
                 CountryManager(networkingService: NetworkingService())
             )

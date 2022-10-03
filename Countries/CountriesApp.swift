@@ -22,7 +22,7 @@ struct CountriesApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CountriesView()
                 .environmentObject(countryManager)
         }
     }
