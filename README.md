@@ -1,8 +1,8 @@
 # Countries_SwiftUI
 <body>
   <div align="center">
-    <img src="https://img.shields.io/static/v1?label=XCode%20Version&message=14&color=brightgreen&logo=xcode" alt="Xcode version 13">
-    <img src="https://img.shields.io/static/v1?label=Swift%20Version&message=5.7&color=brightgreen&logo=swift" alt="Swift Version 5.5">
+    <img src="https://img.shields.io/static/v1?label=XCode%20Version&message=14&color=brightgreen&logo=xcode" alt="Xcode version 14">
+    <img src="https://img.shields.io/static/v1?label=Swift%20Version&message=5.7&color=brightgreen&logo=swift" alt="Swift Version 5.7">
     <img src="https://img.shields.io/static/v1?label=Framework&message=SwiftUI&color=brightgreen&logo=Swift&logoColor=blue">
   </div>
   <p>This is a sample Project for fetching data from <a href="https://restcountries.com">RestCountries API</a> in Swift &amp; SwiftUI</p>
