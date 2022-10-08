@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    struct Name: Codable, Equatable {
+    struct Name: Codable, Hashable, Equatable {
         
         var common: String
         var official: String

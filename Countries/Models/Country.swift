@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Country: Identifiable, Decodable {
+struct Country: Identifiable, Hashable, Decodable {
     //INFO: model property are all var because we maybe want to be able to modify it. In context outside VMs, maybe for testing etc.
     let id = UUID()
     var name: Name

@@ -173,14 +173,10 @@ extension CountryDetailed {
     
     @ViewBuilder
     private var bordersSection: some View {
-        if let borders = country.borders {
+        if let borderCountries = countryManager.getBorderCountries(for: country) {
             Section {
-                ForEach(borders, id: \.self) { border in
-                    if let country = countryManager.getCountry(byCode: border) {
-                        NavigationLink(country.name.common) {
-                            CountryDetailed(country: country)
-                        }
-                    }
+                ForEach(borderCountries) { country in
+                    NavigationLink(country.name.common, value: country)
                 }
             } header: {
                 HStack {
@@ -200,7 +196,7 @@ extension CountryDetailed {
 
 struct CountryDetailed_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             CountryDetailed(country: .italy)
                 .environmentObject(
                     CountryManager(networkingService: NetworkingService())

@@ -14,16 +14,18 @@ struct CountriesView: View {
     @State private var selectedContinent: Country.Continent = .all
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Group {
                 if !countryManager.countries.isEmpty {
                     List(countryManager.filteredCountries.isEmpty ? countryManager.countries : countryManager.filteredCountries) { country in
-                        NavigationLink {
-                            CountryDetailed(country: country)
-                        } label: {
+                        NavigationLink(value: country) {
                             CountryRow(country: country)
                         }
-                    }.accessibilityIdentifier("countriesList")
+                    }
+                    .accessibilityIdentifier("countriesList")
+                    .navigationDestination(for: Country.self) { country in
+                        CountryDetailed(country: country)
+                    }
                 } else {
                     ProgressView("Loading")
                 }
@@ -48,9 +50,6 @@ struct CountriesView: View {
                         Text(selectedContinent.name)
                     }
                 }
-            }
-            .task {
-                await countryManager.loadCountries()
             }
             .refreshable {
                 await countryManager.loadCountries()

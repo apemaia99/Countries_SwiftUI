@@ -18,6 +18,9 @@ final class CountryManager: ObservableObject {
     //MARK: - Init
     init(networkingService: NetworkingService) {
         self.networkingService = networkingService
+        Task {
+            await loadCountries()
+        }
     }
     //MARK: - Methods
     func loadCountries() async {
@@ -26,6 +29,11 @@ final class CountryManager: ObservableObject {
         } catch {
             print(error)
         }
+    }
+    
+    func getBorderCountries(for country: Country) -> [Country]? {
+        guard let borders = country.borders else { return nil }
+        return countries.filter({ borders.contains($0.code) })
     }
     
     func getCountry(byCode code: String) -> Country? {

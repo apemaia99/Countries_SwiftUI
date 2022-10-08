@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    enum Continent: String, CaseIterable, Codable {
+    enum Continent: String, CaseIterable, Hashable, Codable {
         case all
         case none
         case europe = "Europe"
