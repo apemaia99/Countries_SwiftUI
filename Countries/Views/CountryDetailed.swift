@@ -10,7 +10,7 @@ import MapKit
 
 struct CountryDetailed: View {
     
-    @EnvironmentObject private var countryManager: CountryManager
+    @EnvironmentObject private var countriesManager: CountriesManager
     
     let country: Country
     
@@ -173,7 +173,7 @@ extension CountryDetailed {
     
     @ViewBuilder
     private var bordersSection: some View {
-        if let borderCountries = countryManager.getBorderCountries(for: country) {
+        if let borderCountries = countriesManager.getBorderCountries(for: country) {
             Section {
                 ForEach(borderCountries) { country in
                     NavigationLink(country.name.common, value: country)
@@ -199,7 +199,7 @@ struct CountryDetailed_Previews: PreviewProvider {
         NavigationStack {
             CountryDetailed(country: .italy)
                 .environmentObject(
-                    CountryManager(networkingService: NetworkingService())
+                    CountriesManager(networkingService: NetworkingService())
                 )
         }
     }

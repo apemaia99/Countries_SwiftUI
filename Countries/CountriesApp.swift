@@ -10,20 +10,20 @@ import SwiftUI
 @main
 struct CountriesApp: App {
     
-    @StateObject private var countryManager: CountryManager
+    @StateObject private var countriesManager: CountriesManager
     
     init() {
         let networkingService = NetworkingService()
         //INFO: dependency Injection of external Services (also for injecting mocked services)
-        _countryManager = StateObject(
-            wrappedValue: CountryManager(networkingService: networkingService)
+        _countriesManager = StateObject(
+            wrappedValue: CountriesManager(networkingService: networkingService)
         )
     }
     
     var body: some Scene {
         WindowGroup {
             CountriesView()
-                .environmentObject(countryManager)
+                .environmentObject(countriesManager)
         }
     }
 }

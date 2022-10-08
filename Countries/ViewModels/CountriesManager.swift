@@ -1,5 +1,5 @@
 //
-//  CountryManager.swift
+//  CountriesManager.swift
 //  Countries
 //
 //  Created by Alessandro Di Maio on 23/09/22.
@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-final class CountryManager: ObservableObject {
+final class CountriesManager: ObservableObject {
     //MARK: - Services(DI)
     let networkingService: NetworkingService
     //MARK: - ViewModel Properties
