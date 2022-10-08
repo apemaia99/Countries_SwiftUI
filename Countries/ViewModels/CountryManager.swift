@@ -28,6 +28,10 @@ final class CountryManager: ObservableObject {
         }
     }
     
+    func getCountry(byCode code: String) -> Country? {
+        countries.first(where: { $0.code == code })
+    }
+    
     func filterCountries(by continent: Country.Continent) {
         filteredCountries = countries.filter({ $0.continent == continent })
     }
