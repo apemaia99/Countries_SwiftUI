@@ -10,6 +10,7 @@ import Foundation
 enum RestCountries {
     case all
     case name(String)
+    case code(String)
     
     var url: URL {
         
@@ -22,10 +23,12 @@ enum RestCountries {
         switch self {
         case .all:
             final.path += "all"
-        case .name(let string):
+        case .name(let name):
             let parameter = URLQueryItem(name: "fullText", value: "true")
-            final.path += "name/" + string
+            final.path += "name/" + name
             final.queryItems = [parameter]
+        case .code(let code):
+            final.path += "alpha/" + code
         }
         
         return final.url!
