@@ -14,5 +14,6 @@
     <li>CountryManager is marked with @MainActor this ensure that every model updated runs on the main actor (insted of using DispatchQueue every time) this is mandatory for UI.
     <li>Network Service in this case is an actor only because we want its work to be done on a different thread instead of using Task.Detached which is not recommended according to the docs.</li>
     <li>Restcountries is an enum for an easy management of api endpoints.</li>
+    <li>With iOS 16 and SwiftUI 4 the app now support nested navigation trought country borders thanks to NavigationStack.</li>
   </ul>
 </body>
