@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    struct Flag: Codable, Equatable {
+    struct Flag: Codable, Hashable, Equatable {
         
         var png: URL
         var svg: URL

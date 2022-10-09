@@ -9,21 +9,23 @@ import SwiftUI
 
 struct CountriesView: View {
     
-    @EnvironmentObject private var countryManager: CountryManager
+    @EnvironmentObject private var countriesManager: CountriesManager
     @State private var searchField: String = ""
     @State private var selectedContinent: Country.Continent = .all
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Group {
-                if !countryManager.countries.isEmpty {
-                    List(countryManager.filteredCountries.isEmpty ? countryManager.countries : countryManager.filteredCountries) { country in
-                        NavigationLink {
-                            CountryDetailed(country: country)
-                        } label: {
+                if !countriesManager.countries.isEmpty {
+                    List(countriesManager.filteredCountries.isEmpty ? countriesManager.countries : countriesManager.filteredCountries) { country in
+                        NavigationLink(value: country) {
                             CountryRow(country: country)
                         }
-                    }.accessibilityIdentifier("countriesList")
+                    }
+                    .accessibilityIdentifier("countriesList")
+                    .navigationDestination(for: Country.self) { country in
+                        CountryDetailed(country: country)
+                    }
                 } else {
                     ProgressView("Loading")
                 }
@@ -49,19 +51,16 @@ struct CountriesView: View {
                     }
                 }
             }
-            .task {
-                await countryManager.loadCountries()
-            }
             .refreshable {
-                await countryManager.loadCountries()
+                await countriesManager.loadCountries()
             }
         }
         .navigationViewStyle(.stack)
         .onChange(of: searchField) {
-            $0.isEmpty ? countryManager.filterCountries(by: selectedContinent) : countryManager.filterCountries(by: $0)
+            $0.isEmpty ? countriesManager.filterCountries(by: selectedContinent) : countriesManager.filterCountries(by: $0)
         }
         .onChange(of: selectedContinent) {
-            countryManager.filterCountries(by: $0)
+            countriesManager.filterCountries(by: $0)
         }
     }
 }
@@ -70,7 +69,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         CountriesView()
             .environmentObject(
-                CountryManager(networkingService: NetworkingService())
+                CountriesManager(networkingService: NetworkingService())
             )
     }
 }

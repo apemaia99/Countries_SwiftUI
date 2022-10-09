@@ -1,5 +1,5 @@
 //
-//  CountryManager.swift
+//  CountriesManager.swift
 //  Countries
 //
 //  Created by Alessandro Di Maio on 23/09/22.
@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-final class CountryManager: ObservableObject {
+final class CountriesManager: ObservableObject {
     //MARK: - Services(DI)
     let networkingService: NetworkingService
     //MARK: - ViewModel Properties
@@ -18,6 +18,9 @@ final class CountryManager: ObservableObject {
     //MARK: - Init
     init(networkingService: NetworkingService) {
         self.networkingService = networkingService
+        Task {
+            await loadCountries()
+        }
     }
     //MARK: - Methods
     func loadCountries() async {
@@ -26,6 +29,15 @@ final class CountryManager: ObservableObject {
         } catch {
             print(error)
         }
+    }
+    
+    func getBorderCountries(for country: Country) -> [Country]? {
+        guard let borders = country.borders else { return nil }
+        return countries.filter({ borders.contains($0.code) })
+    }
+    
+    func getCountry(byCode code: String) -> Country? {
+        countries.first(where: { $0.code == code })
     }
     
     func filterCountries(by continent: Country.Continent) {

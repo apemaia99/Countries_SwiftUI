@@ -19,7 +19,9 @@ class CountryModelTests: XCTestCase {
                 location: .init(latitude: 41.9, longitude: 12.48)
             ),
             location: .init(latitude: 42.83333333, longitude: 12.83333333),
+            borders: ["AUT", "FRA", "SMR", "SVN", "CHE", "VAT"],
             tlds: [".it"],
+            code: "ITA",
             currencies: [.init(name: "Euro", symbol: "€", ISO4217: "EUR")],
             languages: ["Italian"],
             area: 301336.0,

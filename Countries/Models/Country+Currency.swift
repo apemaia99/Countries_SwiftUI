@@ -8,7 +8,7 @@
 import Foundation
 
 extension Country {
-    struct Currency: Decodable, Equatable {
+    struct Currency: Decodable, Hashable, Equatable {
         
         var name: String
         var symbol: String

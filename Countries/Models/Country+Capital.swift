@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 extension Country {
-    struct Capital: Decodable {
+    struct Capital: Hashable, Decodable {
         
         var name: String
         var location: CLLocationCoordinate2D

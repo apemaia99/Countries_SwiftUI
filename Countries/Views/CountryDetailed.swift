@@ -10,6 +10,8 @@ import MapKit
 
 struct CountryDetailed: View {
     
+    @EnvironmentObject private var countriesManager: CountriesManager
+    
     let country: Country
     
     @State private var mapFullScrenPresented = false
@@ -17,10 +19,12 @@ struct CountryDetailed: View {
     
     init(country: Country) {
         self.country = country
-        self._region = State(initialValue: .init(
-            center: country.location,
-            span: country.span
-        ))
+        self._region = State(
+            initialValue: .init(
+                center: country.location,
+                span: country.span
+            )
+        )
     }
     
     var body: some View {
@@ -33,6 +37,7 @@ struct CountryDetailed: View {
             mapSection
             currencySection
             tldSection
+            bordersSection
         }
         .listStyle(.insetGrouped)
         .navigationBarTitleDisplayMode(.inline)
@@ -165,6 +170,21 @@ extension CountryDetailed {
             }
         }
     }
+    
+    @ViewBuilder
+    private var bordersSection: some View {
+        if let borderCountries = countriesManager.getBorderCountries(for: country) {
+            Section {
+                ForEach(borderCountries) { country in
+                    NavigationLink(country.name.common, value: country)
+                }
+            } header: {
+                HStack {
+                    Text("Borders")
+                }.font(.callout)
+            }
+        }
+    }
 }
 //MARK: - Computed Properties
 extension CountryDetailed {
@@ -176,8 +196,11 @@ extension CountryDetailed {
 
 struct CountryDetailed_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             CountryDetailed(country: .italy)
+                .environmentObject(
+                    CountriesManager(networkingService: NetworkingService())
+                )
         }
     }
 }
