@@ -14,7 +14,7 @@ struct CountryDetailed: View {
     
     let country: Country
     
-    @State private var mapFullScrenPresented = false
+    @State private var mapFullScreenPresented = false
     @State private var region: MKCoordinateRegion
     
     init(country: Country) {
@@ -42,7 +42,7 @@ struct CountryDetailed: View {
         .listStyle(.insetGrouped)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(country.name.common)
-        .fullScreenCover(isPresented: $mapFullScrenPresented) {
+        .fullScreenCover(isPresented: $mapFullScreenPresented) {
             FullScreenMap(location: country.location, span: country.span)
         }
     }
@@ -127,7 +127,7 @@ extension CountryDetailed {
                 .frame(minHeight: 400)
                 .listRowInsets(EdgeInsets())
                 .onTapGesture {
-                    mapFullScrenPresented.toggle()
+                    mapFullScreenPresented.toggle()
                 }
         } header: {
             Text("Map")
